@@ -1,4 +1,7 @@
-package simonMattC;
+package partnerCodeInHerePlease;
+
+import simonMattC.ButtonInterfaceChu;
+import simonMattC.MoveInterfaceChu;
 
 public class Move implements MoveInterfaceChu {
 

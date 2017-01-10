@@ -1,8 +1,9 @@
-package simonMattC;
+package partnerCodeInHerePlease;
 
 import java.awt.Graphics2D;
 
 import gui.Components.Component;
+import simonMattC.ProgressInterfaceChu;
 
 public class Progress extends Component implements ProgressInterfaceChu {
 
@@ -30,7 +31,7 @@ public class Progress extends Component implements ProgressInterfaceChu {
 	}
 
 	@Override
-	public void update(Graphics2D g) {
+	public void update(Graphics2D arg0) {
 		// TODO Auto-generated method stub
 
 	}

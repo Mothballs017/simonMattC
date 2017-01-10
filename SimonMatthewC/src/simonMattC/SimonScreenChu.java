@@ -92,7 +92,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 		for(int i = 0; i < numberOfButtons; i++ ){
 			buttons[i] = getAButton();
 			final ButtonInterfaceChu b = buttons[i];
-			b.setColor(colors[0]);
+			b.setColor(colors[i]);
 			b.setY(40);
 			b.setX(50);
 			b.setAction(new Action(){

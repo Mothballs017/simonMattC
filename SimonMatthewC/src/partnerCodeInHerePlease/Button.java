@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Polygon;
+import java.awt.image.BufferedImage;
 
 import gui.Components.Action;
 import gui.Components.Component;
@@ -81,5 +83,12 @@ public class Button extends Component implements ButtonInterfaceChu {
 		g.setColor(Color.black);
 		g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 35, 25);	
 	}
+
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

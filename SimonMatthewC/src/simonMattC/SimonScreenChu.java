@@ -22,7 +22,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 	boolean acceptingInput;
 	int sequenceIndex;
 	int lastSelectedButton;
-
+	
 	public SimonScreenChu(int width, int height) {
 		super(width, height);
 		Thread app = new Thread(this);
@@ -43,8 +43,8 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
+	    label.setText("");
+	    nextRound();
 	}
 
 	@Override
@@ -126,11 +126,6 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 			});
 			viewObjects.add(b);
 		}
-	}
-	
-	public void run1(){
-	    label.setText("");
-	    nextRound();
 	}
 	
 	private void nextRound() {

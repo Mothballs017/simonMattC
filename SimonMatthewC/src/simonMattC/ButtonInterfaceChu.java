@@ -10,6 +10,8 @@ public interface ButtonInterfaceChu extends Clickable {
 	void setX(int x);
 	void setY(int y);
 
+	void setName(String name);
+
 	void setAction(Action a);
 	void highlight();
 	void dim();

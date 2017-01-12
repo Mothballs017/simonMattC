@@ -1,63 +1,44 @@
 package simonMattC;
 
 import java.awt.Color;
-
-
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import gui.Components.Action;
 import gui.Components.TextLabel;
 import gui.Components.Visible;
 import gui.screens.ClickableScreen;
 import partnerCodeInHerePlease.Button;
-import simonMattC.ButtonInterfaceChu;
-import simonMattC.MoveInterfaceChu;
-import simonMattC.SimonScreenChu;
+import partnerCodeInHerePlease.Move;
+import partnerCodeInHerePlease.Progress;
 
-public class SimonScreenChu extends ClickableScreen implements Runnable {
+public class SimonScreenChu extends ClickableScreen implements Runnable{
 
-	private ArrayList<MoveInterfaceChu> sequence;
+	private TextLabel label;
 	private ButtonInterfaceChu[] buttons;
 	private ProgressInterfaceChu progress;
-	private TextLabel label;
-	int roundNumber;
-	boolean acceptingInput;
-	int sequenceIndex;
-	int lastSelectedButton;
+	private ArrayList<MoveInterfaceChu> sequence; 
+	private int roundNumber;
+	private boolean acceptingInput;
+	private int sequenceIndex;
+	private int lastSelected;
 
 	public SimonScreenChu(int width, int height) {
 		super(width, height);
-		Thread app = new Thread(this);
-		app.start();
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void run() {
-		label.setText("");
-		nextRound();
+		Thread screen = new Thread(this);
+		screen.start();
 	}
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, Color.orange, Color.green, Color.yellow};
-		int buttonCount = 5;
+		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
+		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
+		int buttonCount = 6;
 		buttons = new ButtonInterfaceChu[buttonCount];
 		for(int i = 0; i < buttonCount; i++ ){
 			buttons[i] = getAButton();
+			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
 			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(buttonCount))));
 			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
@@ -87,7 +68,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}else if(acceptingInput){
-							progress.gameOver();
+							gameOver();
 							return;
 						}
 						if(sequenceIndex == sequence.size()){
@@ -103,7 +84,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 		label = new TextLabel(130,230,300,40,"Let's play Simon!");
 		sequence = new ArrayList<MoveInterfaceChu>();
 		//add 2 moves to start
-		lastSelectedButton = -1;
+		lastSelected = -1;
 		sequence.add(randomMove());
 		sequence.add(randomMove());
 		roundNumber = 0;
@@ -112,63 +93,41 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 		viewObjects.add(label);
 	}
 
-	private MoveInterfaceChu randomMove() {
-		ButtonInterfaceChu b = null;//SUBJECT TO CHANGE
-		int randButton = (int)(Math.random()*buttons.length);
-		while(randButton != lastSelectedButton){
-			randButton = (int)(Math.random()*buttons.length);
-		}
-		lastSelectedButton = randButton;
-		return getMove(b);
+	public void gameOver() {
+		progress.gameOver();
 	}
 
-	private MoveInterfaceChu getMove(ButtonInterfaceChu b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-		Placeholder until partner finishes implementation of ProgressInterface
-	 */
-	private ProgressInterfaceChu getProgress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private void addButtons(ArrayList<Visible> viewObjects) {
-		
-	}
-
-	private void nextRound() {
+	public void nextRound() {
 		acceptingInput = false;
-		roundNumber++;
-		randomMove();
+		roundNumber ++;
 		progress.setRound(roundNumber);
-		progress.setSequenceSize(sequence.size());
-		changeText("Simon's turn");
+		sequence.add(randomMove());
+		progress.setSequenceLength(sequence.size());
+		changeText("Simon's turn.");
 		label.setText("");
-		playSequence();
-		changeText("Your Turn");
+		showSequence();
+		changeText("Your turn.");
+		label.setText("");
 		acceptingInput = true;
 		sequenceIndex = 0;
 	}
 
-	private void playSequence() {
-		ButtonInterfaceChu b = null;
-		for(MoveInterfaceChu m: sequence){
-			if(b != null){
-				b.dim();
-			}
-			b = m.getButton();
-			b.highlight();
-			int sleepTime = (int)(2000*(2.0/(roundNumber+2)));
-			try {
-				Thread.sleep(sleepTime);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+
+	private MoveInterfaceChu randomMove() {
+		int select = (int) (Math.random()*buttons.length);
+		while(select == lastSelected){
+			select = (int) (Math.random()*buttons.length);
 		}
-		b.dim();
+		lastSelected = select;
+		return new Move(buttons[select]);
+	}
+
+	private ProgressInterfaceChu getProgress() {
+		return new Progress();
+	}
+
+	private ButtonInterfaceChu getAButton() {
+		return new Button();
 	}
 
 	private void changeText(String string) {
@@ -180,8 +139,50 @@ public class SimonScreenChu extends ClickableScreen implements Runnable {
 		}
 	}
 
-	private ButtonInterfaceChu getAButton() {
-		return null;
+	public void run() {
+		changeText("");
+		while(true){
+			nextRound();
+			synchronized (this) {
+
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
 	}
+
+
+	private void showSequence() {
+		ButtonInterfaceChu b = null;
+		for(MoveInterfaceChu m: sequence){
+			if(b!=null)b.dim();
+			b = m.getButton();
+			b.highlight();
+			try {
+				Thread.sleep((long)(2000*(2.0/(roundNumber+2))));
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		b.dim();
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

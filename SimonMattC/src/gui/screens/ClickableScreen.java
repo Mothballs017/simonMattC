@@ -2,6 +2,7 @@ package gui.screens;
 
 import java.awt.event.MouseEvent;
 
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -15,36 +16,31 @@ import gui.Components.Clickable;
 import gui.Components.Visible;
 public abstract class ClickableScreen extends Screen implements MouseListener{
 
-	ArrayList<Clickable> clickables;
-
+private ArrayList<Clickable> clickables;
+	
 	public ClickableScreen(int width, int height) {
 		super(width, height);
 		// TODO Auto-generated constructor stub
 	}
 
+	public abstract void initAllObjects(ArrayList<Visible> viewObjects);
+	
 	@Override
 	public void initObjects(ArrayList<Visible> viewObjects) {
 		initAllObjects(viewObjects);
 		clickables = new ArrayList<Clickable>();
-		for(Clickable i: clickables){
-			//size of ArrayList can be accessed using size()
-			//element of ArrayList at index i is get(i)
-			if(i instanceof Clickable){
-				clickables.add((Clickable)i);
+		for(Visible v: viewObjects){
+			if(v instanceof Clickable){
+				clickables.add((Clickable)v);
 			}
 		}
 	}
 
-	public abstract void initAllObjects(ArrayList<Visible> lst);
-
-	public MouseListener getMouseListener(){
-		return this;
-	}
-
-	public void mouseClicked(MouseEvent e) {
-		for(Clickable i: clickables){
-			if(i.isHovered(e.getX(), e.getY())){
-				i.act();
+	public void mouseClicked(MouseEvent m) {
+		for(Clickable c: clickables){
+			if(c.isHovered(m.getX(), m.getY())){
+				c.act();
+				break;
 			}
 		}
 	}
@@ -55,37 +51,36 @@ public abstract class ClickableScreen extends Screen implements MouseListener{
 			clickables.add((Clickable)v);
 		}
 	}
+	
 
-
-
+	
 	public void remove(Visible v){
 		super.remove(v);
-		clickables.remove((Clickable)v);
-	} 
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		clickables.remove(v);
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
+		
+	}
 
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public MouseListener getMouseListener(){
+		return this;
 	}
 	
 

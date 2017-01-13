@@ -38,8 +38,8 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 			buttons[i] = getAButton();
 			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
-			buttons[i].setX(40);
-			buttons[i].setY(50 + i*90);
+			buttons[i].setX(100+(i*75));
+			buttons[i].setY(200);
 			final ButtonInterfaceChu b = buttons[i];
 			b.dim();
 			buttons[i].setAction(new Action() {
@@ -72,7 +72,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 			viewObjects.add(buttons[i]);
 		}
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"Let's play Simon!");
+		label = new TextLabel(130,300,300,40,"");
 		sequence = new ArrayList<MoveInterfaceChu>();
 		//add 2 moves to start
 		lastSelected = -1;
@@ -162,13 +162,11 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 		b.dim();
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		

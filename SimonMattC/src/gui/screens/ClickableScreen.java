@@ -2,15 +2,18 @@ package gui.screens;
 
 import java.awt.event.MouseEvent;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import gui.Screen;
 import gui.Components.Clickable;
 import gui.Components.Visible;
-public abstract class ClickableScreen extends Screen implements MouseMotionListener,MouseListener{
+public abstract class ClickableScreen extends Screen implements MouseListener{
 
 	ArrayList<Clickable> clickables;
 
@@ -84,5 +87,6 @@ public abstract class ClickableScreen extends Screen implements MouseMotionListe
 		// TODO Auto-generated method stub
 
 	}
+	
 
 }

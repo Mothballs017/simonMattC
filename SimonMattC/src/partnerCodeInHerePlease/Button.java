@@ -33,8 +33,6 @@ public class Button extends Component implements ButtonInterfaceChu {
 		action.act();
 	}
 
-
-
 	public void setColor(Color color) {
 		this.c = color;
 		displayColor = c;

@@ -3,8 +3,6 @@ package simonMattC;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;
-
 import gui.Components.Action;
 import gui.Components.TextLabel;
 import gui.Components.Visible;
@@ -32,25 +30,21 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 
 	@Override
 	public void initAllObjects(ArrayList<Visible> viewObjects) {
-		Color[] colors = {Color.red, Color.blue, new Color(240,160,70), new Color(20,255,140), Color.yellow, new Color(180,90,210)};
-		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW", "PURPLE"};
-		int buttonCount = 6;
+		Color[] colors = {Color.red, Color.blue, Color.orange, Color.green, Color.yellow};
+		String[] names = {"RED", "BLUE", "ORANGE", "GREEN", "YELLOW"};
+		int buttonCount = 5;
 		buttons = new ButtonInterfaceChu[buttonCount];
-		for(int i = 0; i < buttonCount; i++ ){
+		for(int i = 0; i < buttonCount; i++){
 			buttons[i] = getAButton();
 			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
-			buttons[i].setX(160 + (int)(100*Math.cos(i*2*Math.PI/(buttonCount))));
-			buttons[i].setY(200 - (int)(100*Math.sin(i*2*Math.PI/(buttonCount))));
+			buttons[i].setX(i*20);
+			buttons[i].setY(i*30);
 			final ButtonInterfaceChu b = buttons[i];
-			System.out.println(b+" has x = "+b.getX()+", y ="+b.getY());
 			b.dim();
 			buttons[i].setAction(new Action() {
-
 				public void act() {
-
 						Thread buttonPress = new Thread(new Runnable() {
-							
 							public void run() {
 								b.highlight();
 								try {
@@ -59,12 +53,9 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 									e.printStackTrace();
 								}
 								b.dim();
-								
 							}
 						});
 						buttonPress.start();
-						
-
 						if(acceptingInput && sequence.get(sequenceIndex).getButton() == b){
 							sequenceIndex++;
 						}else if(acceptingInput){
@@ -88,7 +79,6 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 		sequence.add(randomMove());
 		sequence.add(randomMove());
 		roundNumber = 0;
-
 		viewObjects.add(progress);
 		viewObjects.add(label);
 	}

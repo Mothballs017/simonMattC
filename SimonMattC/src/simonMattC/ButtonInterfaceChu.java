@@ -17,8 +17,4 @@ public interface ButtonInterfaceChu extends Clickable {
 
 	
 	void setName(String name);
-
-	void setX(int i);
-
-	void setY(int i);
 }

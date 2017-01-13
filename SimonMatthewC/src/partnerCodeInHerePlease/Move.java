@@ -5,13 +5,12 @@ import simonMattC.MoveInterfaceChu;
 
 public class Move implements MoveInterfaceChu {
 
-	private ButtonInterfaceChu b;
-
+	private ButtonInterfaceChu b; 
+	
 	public Move(ButtonInterfaceChu b) {
 		this.b = b;
 	}
 
-	@Override
 	public ButtonInterfaceChu getButton() {
 		return b;
 	}

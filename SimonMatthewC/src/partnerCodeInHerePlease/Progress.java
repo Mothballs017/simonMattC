@@ -18,7 +18,6 @@ public class Progress extends Component implements ProgressInterfaceChu {
 	private String sequence;
 
 	public Progress() {
-		//no say in progress
 		super(60,60,WIDTH,HEIGHT);
 	}
 
@@ -64,14 +63,6 @@ public class Progress extends Component implements ProgressInterfaceChu {
 				g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
 			}
 		}
-	}
-
-
-
-	@Override
-	public void setSequenceSize(int num) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -4,23 +4,22 @@ import gui.GUIApplication;
 
 public class SimonGameChu extends GUIApplication {
 
-	public static SimonGameChu sg;
-	public static SimonScreenChu ss;
 
 	public SimonGameChu(int width, int height) {
 		super(width, height);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initScreen() {
-		ss = new SimonScreenChu(getWidth(),getHeight());
+		SimonScreenChu ss = new SimonScreenChu(getWidth(), getHeight());
 		setScreen(ss);
 	}
 
 	public static void main(String[] args) {
-		sg = new SimonGameChu(800,500);
-		Thread game = new Thread(sg);
-		game.start();
+		SimonGameChu game = new SimonGameChu(800, 500);
+		Thread app = new Thread(game);
+		app.start();
 	}
 
 }

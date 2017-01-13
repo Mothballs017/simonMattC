@@ -38,8 +38,8 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 			buttons[i] = getAButton();
 			buttons[i].setName(names[i]);
 			buttons[i].setColor(colors[i]);
-			buttons[i].setX(i*20);
-			buttons[i].setY(i*30);
+			buttons[i].setX(40);
+			buttons[i].setY(50 + i*90);
 			final ButtonInterfaceChu b = buttons[i];
 			b.dim();
 			buttons[i].setAction(new Action() {
@@ -169,7 +169,7 @@ public class SimonScreenChu extends ClickableScreen implements Runnable{
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

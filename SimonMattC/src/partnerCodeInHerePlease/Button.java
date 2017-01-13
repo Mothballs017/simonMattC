@@ -91,17 +91,5 @@ public class Button extends Component implements ButtonInterfaceChu {
 	public String toString(){
 		return name;
 	}
-
-	@Override
-	public void setX(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setY(int i) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }
